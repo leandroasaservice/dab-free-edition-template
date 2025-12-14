@@ -1,0 +1,27 @@
+bundle:
+  name: {{.project_name}}
+
+include:
+{{- if eq .include_job "yes" }}
+  - resources/*.yml
+{{- end }}
+  - sql/*
+  - adr/*
+  - docs/*
+  - src/**
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: {{workspace_host}}
+  prod:
+    mode: production
+    workspace:
+      host: {{workspace_host}}
+      root_path: /Shared/.bundle/prod/${bundle.name}
+    {{- if not is_service_principal }}
+    run_as:
+      user_name: {{user_name}}
+    {{- end }}

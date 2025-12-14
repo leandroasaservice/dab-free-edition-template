@@ -1,0 +1,3 @@
+{{- if eq .include_job "no" }}
+  {{ skip "resources/*_job.yml" }}
+{{- end }}

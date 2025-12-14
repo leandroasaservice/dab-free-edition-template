@@ -1,0 +1,16 @@
+  resources:
+    jobs:
+      {{.project_name}}_template_job:
+        name: {{.project_name}}_template_job
+        tasks:
+          - task_key: python_task
+            spark_python_task:
+              python_file: ../src/{{.project_name}}/task.py
+            environment_key: Default
+        queue:
+          enabled: false
+        environments:
+          - environment_key: Default
+            spec:
+              environment_version: "4"
+        performance_target: PERFORMANCE_OPTIMIZED

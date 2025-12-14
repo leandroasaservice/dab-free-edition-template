@@ -1,0 +1,32 @@
+{
+    "welcome_message": "\n Welcome to the basic-deng-template Databricks Asset Bundle Template!\n\n Answer the questions below to customize your project. You can always change your configuration in the databricks.yml file later.This generator will help you create a new Databricks Asset Bundle project based on the 'basic-deng-template'.\n Currently working on {{workspace_host}}.\n",
+    "properties": {
+        "template_name": {
+            "//": "This property is always set to 'basic-deng-template'",
+            "skip_prompt_if": {},
+            "type": "string",
+            "default": "basic-deng-template",
+            "description": "Template name for documentation",
+            "order": 0
+        },
+        "project_name": {
+            "type": "string",
+            "default": "basic-deng-template",
+            "description": "Basic Databricks Asset Bundle Project Template.",
+            "pattern": "^[A-Za-z0-9_]+$",
+            "pattern_match_failure_message": "Name must consist of letters, numbers, and underscores.",
+            "order": 1
+        },
+        "include_job": {
+            "type": "string",
+            "default": "no",
+            "enum": [
+                "yes",
+                "no"
+            ],
+            "description": "Include a sample Databricks Job in the project?",
+            "order": 2
+        }
+    },
+    "success_message": "\n Bundle `{{.project_name}}` has been created!"
+}
