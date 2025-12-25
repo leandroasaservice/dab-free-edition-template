@@ -1,5 +1,5 @@
 {
-    "welcome_message": "\n Welcome to the basic-deng-template Databricks Asset Bundle Template!\n\n Answer the questions below to customize your project. You can always change your configuration in the databricks.yml file later.This generator will help you create a new Databricks Asset Bundle project based on the 'basic-deng-template'.\n Currently working on {{workspace_host}}.\n",
+    "welcome_message": "\n Welcome to the basic-deng-template Databricks Asset Bundle Template - Free Edition! \n\n This template contains files to use in your Databricks Free Edition projects.\n\n Answer the questions below to customize your project. You can always change your configuration in the databricks.yml file later.This generator will help you create a new Databricks Asset Bundle project based on the 'basic-deng-template'.\n Currently working on {{workspace_host}}.\n",
     "properties": {
         "template_name": {
             "//": "This property is always set to 'basic-deng-template'",
@@ -14,7 +14,7 @@
             "default": "basic-deng-template",
             "description": "Basic Databricks Asset Bundle Project Template.",
             "pattern": "^[A-Za-z0-9_-]+$",
-            "pattern_match_failure_message": "Name must consist of letters, numbers, and underscores.",
+            "pattern_match_failure_message": "Name must consist of letters, numbers, hyphens and underscores.",
             "order": 1
         },
         "include_job": {
