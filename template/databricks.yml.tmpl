@@ -15,13 +15,12 @@ targets:
     mode: development
     default: true
     workspace:
+      root_path: /Workspace/Users/${user_name}/.bundle/${bundle.name}
       host: {{workspace_host}}
-  prod:
+  prod: # Update this section as you need.
     mode: production
     workspace:
       host: {{workspace_host}}
       root_path: /Shared/.bundle/prod/${bundle.name}
-    {{- if not is_service_principal }}
     run_as:
       user_name: {{user_name}}
-    {{- end }}
