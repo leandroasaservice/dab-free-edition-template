@@ -13,7 +13,7 @@
             "type": "string",
             "default": "basic-deng-template",
             "description": "Basic Databricks Asset Bundle Project Template.",
-            "pattern": "^[A-Za-z0-9_]+$",
+            "pattern": "^[A-Za-z0-9_-]+$",
             "pattern_match_failure_message": "Name must consist of letters, numbers, and underscores.",
             "order": 1
         },
