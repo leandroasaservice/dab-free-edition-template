@@ -1,0 +1,15 @@
+# Docker Compose for testing Spark applications with pytest
+# Based on https://github.com/leandroasaservice/spark-compose
+
+services:
+  spark-test:
+    build:
+      context: ./docker
+      dockerfile: spark-pytest.Dockerfile
+    container_name: spark-test
+    volumes:
+      - ./src:/app/src:ro
+      - ./tests:/app/tests:ro
+      - ./reports:/app/reports
+      - ./pytest.toml:/app/pytest.toml:ro
+      - ./.coveragerc:/app/.coveragerc:ro

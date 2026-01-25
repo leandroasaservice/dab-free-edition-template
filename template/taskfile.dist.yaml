@@ -1,0 +1,45 @@
+# Taskfile for Spark pytest testing
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  default:
+    desc: Show available tasks
+    cmds:
+      - task --list
+
+  build:
+    desc: Build the Spark pytest Docker image
+    cmds:
+      - docker compose build
+
+  test:
+    desc: Run all pytest tests
+    deps: [build]
+    cmds:
+      - docker compose run --rm spark-test
+
+  test-cov:
+    desc: Run pytest with coverage report
+    deps: [build]
+    cmds:
+      - mkdir -p reports
+      - docker compose run --rm spark-test pytest --cov=src --cov-report=term-missing --cov-report=html --cov-report=xml --junitxml=reports/junit.xml
+
+  test-file:
+    desc: "Run a specific test file (usage: task test-file -- tests/test_example.py)"
+    deps: [build]
+    cmds:
+      - docker compose run --rm spark-test pytest -v {{.CLI_ARGS}}
+
+  shell:
+    desc: Open a bash shell in the container
+    deps: [build]
+    cmds:
+      - docker compose run --rm spark-test /bin/bash
+
+  clean:
+    desc: Remove containers and images
+    cmds:
+      - docker compose down --rmi local
