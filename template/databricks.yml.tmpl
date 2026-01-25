@@ -5,17 +5,13 @@ include:
 {{- if eq .include_job "yes" }}
   - resources/*.yml
 {{- end }}
-  - sql/*
-  - adr/*
-  - docs/*
-  - src/**
 
 targets:
   dev:
     mode: development
     default: true
     workspace:
-      root_path: /Workspace/Users/${user_name}/.bundle/${bundle.name}
+      root_path: ~/.bundle/${bundle.name}
       host: {{workspace_host}}
   prod: # Update this section as you need.
     mode: production
