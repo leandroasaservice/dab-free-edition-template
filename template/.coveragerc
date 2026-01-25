@@ -1,0 +1,27 @@
+[run]
+source = src
+branch = True
+parallel = True
+omit =
+    */tests/*
+    */__pycache__/*
+
+[report]
+show_missing = True
+skip_covered = False
+precision = 2
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    if TYPE_CHECKING:
+
+[html]
+directory = reports/htmlcov
+show_contexts = True
+skip_covered = False
+
+[xml]
+output = reports/coverage.xml
