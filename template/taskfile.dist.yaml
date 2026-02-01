@@ -43,3 +43,9 @@ tasks:
     desc: Remove containers and images
     cmds:
       - docker compose down --rmi local
+
+  lint:
+    desc: Format and lint code with ruff
+    cmds:
+      - ruff format src tests
+      - ruff check --fix src tests

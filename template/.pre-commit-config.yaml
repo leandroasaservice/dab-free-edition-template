@@ -1,0 +1,18 @@
+repos:
+  - repo: local
+    hooks:
+      - id: task-lint
+        name: Run task lint
+        entry: task lint
+        language: system
+        types: [python]
+        files: ^(src|tests)/
+        pass_filenames: false
+
+      - id: task-test-cov
+        name: Run task test-cov
+        entry: task test-cov
+        language: system
+        types: [python]
+        files: ^(src|tests)/
+        pass_filenames: false
