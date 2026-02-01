@@ -4,6 +4,7 @@ from pyspark.testing.utils import assertDataFrameEqual
 
 from src.transformations import (
     add_full_name,
+    enrich_bakehouse_sales,
     filter_by_age,
     remove_extra_spaces,
     uppercase_column,
@@ -56,3 +57,15 @@ def test_filter_by_age(spark):
     assert "Alice" in names
     assert "Carol" in names
     assert "Bob" not in names
+
+
+def test_enrich_bakehouse_sales(
+    df_transactions,
+    df_customers,
+    df_franchises,
+    df_expected_enriched_sales,
+):
+    """Test that bakehouse sales are enriched with customer and franchise data."""
+    result = enrich_bakehouse_sales(df_transactions, df_customers, df_franchises)
+
+    assertDataFrameEqual(result, df_expected_enriched_sales)

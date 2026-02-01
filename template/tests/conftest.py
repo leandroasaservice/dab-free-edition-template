@@ -3,6 +3,8 @@
 import pytest
 from pyspark.sql import SparkSession
 
+pytest_plugins = ["tests.mocks.bakehouse_mocks"]
+
 
 @pytest.fixture(scope="session")
 def spark():
