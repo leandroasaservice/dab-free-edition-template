@@ -13,6 +13,7 @@ precision = 2
 exclude_lines =
     pragma: no cover
     def __repr__
+    def main()
     raise AssertionError
     raise NotImplementedError
     if __name__ == .__main__.:
