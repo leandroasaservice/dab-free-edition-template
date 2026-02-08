@@ -1,0 +1,66 @@
+resources:
+  jobs:
+    {{.project_name}}_ddl_setup:
+      name: {{.project_name}}_ddl_setup
+      description: One-time job to create Unity Catalog objects (catalog, schema, table).
+      email_notifications:
+        on_success:
+          - {{user_name}}
+        on_failure:
+          - {{user_name}}
+        no_alert_for_skipped_runs: true
+      notification_settings:
+        no_alert_for_skipped_runs: true
+        no_alert_for_canceled_runs: true
+      max_concurrent_runs: 1
+      timeout_seconds: 300
+      schedule:
+        # Paused by default - run manually as a one-time setup
+        quartz_cron_expression: 0 0 0 1 1 ? 2099
+        timezone_id: UTC
+        pause_status: PAUSED
+      parameters:
+        - name: catalog_name
+          default: ${var.catalog_name}
+        - name: schema_name
+          default: ${var.schema_name}
+        - name: table_name
+          default: ${var.table_name}
+        - name: department
+          default: ${var.department}
+        - name: environment
+          default: ${var.environment}
+        - name: team
+          default: ${var.team}
+      tasks:
+        - task_key: create_catalog_objects
+          sql_task:
+            file:
+              path: ../one-time/sql/ddl/create_gold_sales_monitoring.sql
+            parameters:
+              catalog_name: "{{`{{job.parameters.catalog_name}}`}}"
+              schema_name: "{{`{{job.parameters.schema_name}}`}}"
+              table_name: "{{`{{job.parameters.table_name}}`}}"
+              department: "{{`{{job.parameters.department}}`}}"
+              environment: "{{`{{job.parameters.environment}}`}}"
+              team: "{{`{{job.parameters.team}}`}}"
+            warehouse_id: ${var.warehouse_id}
+          timeout_seconds: 300
+          notification_settings:
+            no_alert_for_skipped_runs: true
+            no_alert_for_canceled_runs: true
+            alert_on_last_attempt: true
+      tags:
+        catalog: ${var.catalog_name}
+        schema: ${var.schema_name}
+        table: ${var.table_name}
+        department: ${var.department}
+        environment: ${var.environment}
+        team: ${var.team}
+        purpose: one-time-setup
+      environments:
+        - environment_key: Default
+          spec:
+            client: "1"
+      queue:
+        enabled: true

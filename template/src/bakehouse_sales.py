@@ -1,18 +1,21 @@
+import sys
+
 from pyspark.sql import SparkSession
 
 from transformations import enrich_bakehouse_sales
 
 
-def main():
+def main(catalog_name: str, schema_name: str, table_name: str):
     app_name = "bakehouse_sales"
     spark = SparkSession.builder.appName(app_name).getOrCreate()
 
     bakehouse_transactions = "samples.bakehouse.sales_transactions"
     bakehouse_customers = "samples.bakehouse.sales_customers"
     bakehouse_franchises = "samples.bakehouse.sales_franchises"
-    target_enrich_bakehouse_sales = "workspace.bakehouse.enrich_bakehouse_sales"
+    target_table = f"{catalog_name}.{schema_name}.{table_name}"
 
     columns_transactions = [
+        "dateTime",
         "transactionID",
         "product",
         "quantity",
@@ -44,9 +47,16 @@ def main():
         df_transactions=df_transactions, df_customers=df_customers, df_franchises=df_franchises
     )
 
-    spark.sparkContext.setJobGroup(app_name, f"Saving table {target_enrich_bakehouse_sales}.")
-    df_enrich_bakehouse_sales.write.mode("overwrite").saveAsTable(target_enrich_bakehouse_sales)
+    df_enrich_bakehouse_sales.write.mode("overwrite").saveAsTable(target_table)
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) != 4:
+        print("Usage: bakehouse_sales.py <catalog_name> <schema_name> <table_name>")
+        sys.exit(1)
+
+    main(
+        catalog_name=sys.argv[1],
+        schema_name=sys.argv[2],
+        table_name=sys.argv[3],
+    )

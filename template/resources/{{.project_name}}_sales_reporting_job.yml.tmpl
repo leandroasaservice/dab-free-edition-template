@@ -1,0 +1,62 @@
+resources:
+  jobs:
+    {{.project_name}}_bakehouse_sales:
+      name: {{.project_name}}_bakehouse_sales
+      description: Updates sales dashboard.
+      email_notifications:
+        on_start:
+          - {{user_name}}
+        on_success:
+          - {{user_name}}
+        on_failure:
+          - {{user_name}}
+        on_duration_warning_threshold_exceeded:
+          - {{user_name}}
+        no_alert_for_skipped_runs: true
+      notification_settings:
+        no_alert_for_skipped_runs: true
+        no_alert_for_canceled_runs: true
+      timeout_seconds: 600
+      health:
+        rules:
+          - metric: RUN_DURATION_SECONDS
+            op: GREATER_THAN
+            value: 480
+      schedule:
+        # Runs once a day at 00h00
+        quartz_cron_expression: 0 0 0 * * ?
+        timezone_id: America/Sao_Paulo
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: bakehouse
+          spark_python_task:
+            python_file: ../src/bakehouse_sales.py
+            parameters:
+              - ${var.catalog_name}
+              - ${var.schema_name}
+              - ${var.table_name}
+          timeout_seconds: 600
+          health:
+            rules:
+              - metric: RUN_DURATION_SECONDS
+                op: GREATER_THAN
+                value: 300
+          notification_settings:
+            no_alert_for_skipped_runs: true
+            no_alert_for_canceled_runs: true
+            alert_on_last_attempt: true
+          environment_key: Default
+      tags:
+        catalog: ${var.catalog_name}
+        schema: ${var.schema_name}
+        table: ${var.table_name}
+        department: ${var.department}
+        environment: ${var.environment}
+        team: ${var.team}
+      queue:
+        enabled: true
+      environments:
+        - environment_key: Default
+          spec:
+            environment_version: "4"
+      performance_target: PERFORMANCE_OPTIMIZED

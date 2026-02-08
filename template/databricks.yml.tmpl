@@ -6,6 +6,22 @@ include:
   - resources/*.yml
 {{- end }}
 
+variables:
+  catalog_name:
+    description: Unity Catalog name
+  schema_name:
+    description: Schema name within the catalog
+  table_name:
+    description: Target table name
+  department:
+    description: Department tag for resources
+  environment:
+    description: Environment tag (dev, staging, prod)
+  team:
+    description: Team tag for resources
+  warehouse_id:
+    description: SQL Warehouse ID for running SQL tasks
+
 targets:
   dev:
     mode: development
@@ -13,6 +29,14 @@ targets:
     workspace:
       root_path: ~/.bundle/${bundle.name}
       host: {{workspace_host}}
+    variables:
+      catalog_name: dev_reporting
+      schema_name: bakehouse_sales
+      table_name: gold_sales_monitoring
+      department: sales
+      environment: dev
+      team: Sales Analytics
+      warehouse_id: 86e2d617c669fbc1
   prod: # Update this section as you need.
     mode: production
     workspace:

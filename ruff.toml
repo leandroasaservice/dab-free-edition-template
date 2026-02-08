@@ -1,0 +1,79 @@
+# Ruff configuration for data analytics projects
+# https://docs.astral.sh/ruff/configuration/
+
+# Target Python version
+target-version = "py313"
+
+# Line length
+line-length = 120
+
+# Exclude directories
+exclude = [
+    ".databricks",
+    ".git",
+    ".venv",
+    "__pycache__",
+    ".pytest_cache",
+    "build",
+    "dist",
+    "*.egg-info",
+]
+
+# Fix violations automatically when possible
+fix = true
+
+[lint]
+# Enable rules commonly used in data analytics
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # Pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "C90",    # mccabe complexity
+    "UP",     # pyupgrade
+    "SIM",    # flake8-simplify
+    "TCH",    # flake8-type-checking
+    "PTH",    # flake8-use-pathlib
+    "PD",     # pandas-vet
+    "NPY",    # numpy-specific rules
+    "PERF",   # performance anti-patterns
+    "RUF",    # Ruff-specific rules
+]
+
+ignore = [
+    "E501",   # Line too long (handled by formatter)
+    "PD011",  # Use .to_numpy() instead of .values (sometimes .values is preferred)
+]
+
+# Allow unused variables when underscore-prefixed
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[lint.mccabe]
+# Cyclomatic complexity threshold
+max-complexity = 5
+
+[lint.isort]
+known-first-party = ["src"]
+force-single-line = false
+lines-after-imports = 2
+
+[lint.per-file-ignores]
+# Tests can have more complexity and unused imports for fixtures
+"tests/*" = ["C90", "F401", "F811"]
+# Notebooks often have unused imports and star imports
+"*.ipynb" = ["F401", "F403", "E402"]
+
+[format]
+# Use double quotes for strings
+quote-style = "double"
+
+# Indent with spaces
+indent-style = "space"
+
+# Unix-style line endings
+line-ending = "lf"
+
+# Format docstrings
+docstring-code-format = true

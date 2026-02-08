@@ -26,30 +26,30 @@ def filter_by_age(df: DataFrame, min_age: int) -> DataFrame:
 
 def enrich_bakehouse_sales(df_transactions: DataFrame, df_customers: DataFrame, df_franchises: DataFrame) -> DataFrame:
     query = """
-    select a.transactionID
-        ,a.dateTime as transactionDateTime
-        ,c.franchiseID
-        ,a.product
-        ,a.quantity
-        ,a.unitPrice
-        ,a.totalPrice
-        ,a.paymentMethod
-        ,concat('XXXX-XXXX-XXXX-', right(cast(a.cardNumber as string), 4)) as masked_cardNumber
-        ,b.customerId
-        ,b.first_name
-        ,b.last_name
-        ,b.gender
-        ,b.country as customer_country
-        ,b.continent as customer_continent
-        ,c.name as franchise_name
-        ,case when c.size = 'S' then 1
+    select cast(a.transactionID as bigint) as transactionID
+        ,cast(a.dateTime as timestamp) as transactionDateTime
+        ,cast(c.franchiseID as bigint) as franchiseID
+        ,cast(a.product as string) as product
+        ,cast(a.quantity as int) as quantity
+        ,cast(a.unitPrice as decimal(10,2)) as unitPrice
+        ,cast(a.totalPrice as decimal(10,2)) as totalPrice
+        ,cast(a.paymentMethod as string) as paymentMethod
+        ,cast(concat('XXXX-XXXX-XXXX-', right(cast(a.cardNumber as string), 4)) as string) as masked_cardNumber
+        ,cast(b.customerId as bigint) as customerId
+        ,cast(b.first_name as string) as first_name
+        ,cast(b.last_name as string) as last_name
+        ,cast(b.gender as string) as gender
+        ,cast(b.country as string) as customer_country
+        ,cast(b.continent as string) as customer_continent
+        ,cast(c.name as string) as franchise_name
+        ,cast(case when c.size = 'S' then 1
             when c.size = 'M' then 2
             when c.size = 'L' then 3
             when c.size = 'XL' then 4
             when c.size = 'XXL' then 5
-            else null end as franchise_size
-        ,c.longitude as franchise_longitude
-        ,c.latitude as franchise_latitude
+            else null end as int) as franchise_size
+        ,cast(c.longitude as double) as franchise_longitude
+        ,cast(c.latitude as double) as franchise_latitude
     from {bakehouse_sales_transactions} a
         left join {bakehouse_sales_customers} b on a.customerID = b.customerID
         left join {bakehouse_sales_franchises} c on a.franchiseID = c.franchiseID
