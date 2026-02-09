@@ -15,12 +15,6 @@ tasks:
       - docker compose build
 
   test:
-    desc: Run all pytest tests
-    deps: [build]
-    cmds:
-      - docker compose run --rm spark-test
-
-  test-cov:
     desc: Run pytest with coverage report
     deps: [build]
     cmds:
