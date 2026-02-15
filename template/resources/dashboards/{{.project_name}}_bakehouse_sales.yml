@@ -1,0 +1,8 @@
+resources:
+  dashboards:
+    bakehouse_sales:
+      display_name: 'Bakehouse Sales'
+      file_path: ./${bundle.name}_bakehouse_sales.lvdash.json
+      warehouse_id: ${var.warehouse_id}
+      dataset_catalog: ${var.catalog_name}
+      dataset_schema: ${var.schema_name}

@@ -26,6 +26,16 @@
             ],
             "description": "Include a sample Databricks Job in the project?",
             "order": 2
+        },
+        "include_dashboard": {
+            "type": "string",
+            "default": "no",
+            "enum": [
+                "yes",
+                "no"
+            ],
+            "description": "Include a sample Databricks Dashboard in the project?",
+            "order": 2
         }
     },
     "success_message": "\n Bundle `{{.project_name}}` has been created!"

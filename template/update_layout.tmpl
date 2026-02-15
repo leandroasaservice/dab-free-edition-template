@@ -1,3 +1,7 @@
 {{- if eq .include_job "no" }}
-  {{ skip "resources/*_job.yml" }}
+  {{ skip "resources/jobs/*.yml" }}
+{{- end }}
+{{- if eq .include_dashboard "no" }}
+  {{ skip "resources/dashboards/*.yml" }}
+  {{ skip "resources/dashboards/*.json" }}
 {{- end }}

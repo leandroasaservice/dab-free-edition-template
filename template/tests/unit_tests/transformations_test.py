@@ -11,7 +11,9 @@ from src.transformations import (
 )
 
 
-pytest_plugins = ["tests.unit_tests.transformations_data"]
+pytest_plugins = [
+    "tests.unit_tests.transformations_data",
+]
 
 
 def test_remove_extra_spaces(mock_names, expected_names):

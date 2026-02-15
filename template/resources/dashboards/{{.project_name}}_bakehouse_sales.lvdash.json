@@ -1,0 +1,297 @@
+{
+  "datasets": [
+    {
+      "name": "0d5bfce1",
+      "displayName": "gold_sales_monitoring",
+      "queryLines": [
+        "SELECT * FROM gold_sales_monitoring"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "2f37c00e",
+      "displayName": "main",
+      "layout": [
+        {
+          "widget": {
+            "name": "26e3ac0a",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0d5bfce1",
+                  "fields": [
+                    {
+                      "name": "franchise_latitude",
+                      "expression": "`franchise_latitude`"
+                    },
+                    {
+                      "name": "franchise_longitude",
+                      "expression": "`franchise_longitude`"
+                    },
+                    {
+                      "name": "count(transactionID)",
+                      "expression": "COUNT(`transactionID`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showDescription": false,
+                "showTitle": false
+              },
+              "widgetType": "symbol-map",
+              "encodings": {
+                "coordinates": {
+                  "latitude": {
+                    "fieldName": "franchise_latitude"
+                  },
+                  "longitude": {
+                    "fieldName": "franchise_longitude"
+                  }
+                },
+                "size": {
+                  "fieldName": "count(transactionID)",
+                  "scale": {
+                    "type": "quantitative",
+                    "domain": {
+                      "max": 5
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 5,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "a753373b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0d5bfce1",
+                  "fields": [
+                    {
+                      "name": "daily(transactionDateTime)",
+                      "expression": "DATE_TRUNC(\"DAY\", `transactionDateTime`)"
+                    },
+                    {
+                      "name": "sum(totalPrice)",
+                      "expression": "SUM(`totalPrice`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily(transactionDateTime)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(totalPrice)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "5247a1b3",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0d5bfce1",
+                  "fields": [
+                    {
+                      "name": "daily(transactionDateTime)",
+                      "expression": "DATE_TRUNC(\"DAY\", `transactionDateTime`)"
+                    },
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    },
+                    {
+                      "name": "count(transactionID)",
+                      "expression": "COUNT(`transactionID`)"
+                    }
+                  ],
+                  "disaggregated": false,
+                  "orders": [
+                    {
+                      "direction": "DESC",
+                      "expression": "DATE_TRUNC(\"DAY\", `transactionDateTime`)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "count(transactionID)"
+                },
+                "target": {
+                  "fieldName": "count(*)",
+                  "period": {
+                    "type": "relative-to-value-period",
+                    "offset": -1
+                  },
+                  "change": {
+                    "type": "percent"
+                  }
+                },
+                "period": {
+                  "fieldName": "daily(transactionDateTime)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "b98dee2c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0d5bfce1",
+                  "fields": [
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    },
+                    {
+                      "name": "product",
+                      "expression": "`product`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "count(*)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "product",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 5
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "2f9c7a47",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "d51ebd6e",
+            "queries": [
+              {
+                "name": "dashboards/01f0fbca54691b13b5e13290b8ba547d/datasets/01f10606e5f21307837d4e596e217d97_transactionDateTime",
+                "query": {
+                  "datasetName": "0d5bfce1",
+                  "fields": [
+                    {
+                      "name": "transactionDateTime",
+                      "expression": "`transactionDateTime`"
+                    },
+                    {
+                      "name": "transactionDateTime_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "widgetType": "filter-date-range-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "transactionDateTime",
+                    "queryName": "dashboards/01f0fbca54691b13b5e13290b8ba547d/datasets/01f10606e5f21307837d4e596e217d97_transactionDateTime"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}

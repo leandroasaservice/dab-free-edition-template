@@ -36,7 +36,7 @@ resources:
         - task_key: create_catalog_objects
           sql_task:
             file:
-              path: ../one-time/sql/ddl/create_gold_sales_monitoring.sql
+              path: ../../one-time/sql/ddl/create_gold_sales_monitoring.sql
             parameters:
               catalog_name: "{{`{{job.parameters.catalog_name}}`}}"
               schema_name: "{{`{{job.parameters.schema_name}}`}}"

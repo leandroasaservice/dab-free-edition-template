@@ -30,7 +30,7 @@ resources:
       tasks:
         - task_key: bakehouse
           spark_python_task:
-            python_file: ../src/bakehouse_sales.py
+            python_file: ../../src/bakehouse_sales.py
             parameters:
               - ${var.catalog_name}
               - ${var.schema_name}

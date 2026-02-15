@@ -3,7 +3,11 @@ bundle:
 
 include:
 {{- if eq .include_job "yes" }}
-  - resources/*.yml
+  - resources/jobs/*.yml
+{{- end }}
+{{- if eq .include_dashboard "yes" }}
+  - resources/dashboards/*.yml
+  - resources/dashboards/*.json
 {{- end }}
 
 variables:
