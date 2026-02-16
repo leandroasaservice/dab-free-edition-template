@@ -34,7 +34,8 @@ RUN pip install --no-cache-dir \
     pyspark==${SPARK_VERSION} \
     delta-spark==${DELTA_SPARK_VERSION} \
     pytest \
-    pytest-cov
+    pytest-cov \
+    pytest-bdd
 
 WORKDIR /app
 ENV PYTHONPATH=/app

@@ -5,6 +5,8 @@ from decimal import Decimal
 
 import pytest
 
+from tests.schemas import CUSTOMER_SCHEMA, FRANCHISE_SCHEMA, TRANSACTION_SCHEMA
+
 
 # Data for test_remove_extra_spaces
 @pytest.fixture
@@ -56,18 +58,6 @@ def mock_ages(spark):
 @pytest.fixture
 def mock_transactions(spark):
     """Mock transactions DataFrame."""
-    schema = """
-        transactionID BIGINT,
-        dateTime TIMESTAMP,
-        customerID BIGINT,
-        franchiseID BIGINT,
-        product STRING,
-        quantity INT,
-        unitPrice DECIMAL(10,2),
-        totalPrice DECIMAL(10,2),
-        paymentMethod STRING,
-        cardNumber DECIMAL(20,0)
-    """
     data = [
         (
             1001,
@@ -106,43 +96,28 @@ def mock_transactions(spark):
             Decimal("1111222233334444"),
         ),
     ]
-    return spark.createDataFrame(data, schema)
+    return spark.createDataFrame(data, TRANSACTION_SCHEMA)
 
 
 @pytest.fixture
 def mock_customers(spark):
     """Mock customers DataFrame."""
-    schema = """
-        customerId BIGINT,
-        first_name STRING,
-        last_name STRING,
-        gender STRING,
-        country STRING,
-        continent STRING
-    """
     data = [
         (101, "Alice", "Johnson", "F", "USA", "North America"),
         (102, "Bob", "Smith", "M", "Canada", "North America"),
         (103, "Carol", "Williams", "F", "UK", "Europe"),
     ]
-    return spark.createDataFrame(data, schema)
+    return spark.createDataFrame(data, CUSTOMER_SCHEMA)
 
 
 @pytest.fixture
 def mock_franchises(spark):
     """Mock franchises DataFrame."""
-    schema = """
-        franchiseID BIGINT,
-        name STRING,
-        size STRING,
-        longitude DOUBLE,
-        latitude DOUBLE
-    """
     data = [
         (201, "Downtown Bakehouse", "L", -73.9857, 40.7484),
         (202, "Suburban Bakehouse", "M", -74.0060, 40.7128),
     ]
-    return spark.createDataFrame(data, schema)
+    return spark.createDataFrame(data, FRANCHISE_SCHEMA)
 
 
 @pytest.fixture
