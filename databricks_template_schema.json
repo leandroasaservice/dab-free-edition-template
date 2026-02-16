@@ -12,22 +12,22 @@
         "project_name": {
             "type": "string",
             "default": "basic-deng-template",
-            "description": "Basic Databricks Asset Bundle Project Template.",
+            "description": "Basic Databricks Asset Bundle Project Template",
             "pattern": "^[A-Za-z0-9_-]+$",
             "pattern_match_failure_message": "Name must consist of letters, numbers, hyphens and underscores.",
             "order": 1
         },
         "department":{
             "type": "string",
-            "description": "Department the project belongs to."
+            "description": "Department the project belongs to"
         },
         "team":{
             "type": "string",
-            "description": "Team the project belongs to."
+            "description": "Team the project belongs to"
         },
         "warehouse_id":{
             "type": "string",
-            "description": "Serveless computing service that will run the project in the default environment."
+            "description": "Serveless computing service that will run the project in the default environment"
         },
         "include_job": {
             "type": "string",
