@@ -37,10 +37,10 @@ targets:
       catalog_name: dev_reporting
       schema_name: bakehouse_sales
       table_name: gold_sales_monitoring
-      department: sales
+      department: {{.department}}
       environment: dev
-      team: Sales Analytics
-      warehouse_id: 86e2d617c669fbc1
+      team: {{.team}}
+      warehouse_id: {{.warehouse_id}}
   prod: # Update this section as you need.
     mode: production
     workspace:

@@ -17,6 +17,18 @@
             "pattern_match_failure_message": "Name must consist of letters, numbers, hyphens and underscores.",
             "order": 1
         },
+        "department":{
+            "type": "string",
+            "description": "Department the project belongs to."
+        },
+        "team":{
+            "type": "string",
+            "description": "Team the project belongs to."
+        },
+        "warehouse_id":{
+            "type": "string",
+            "description": "Serveless computing service that will run the project in the default environment."
+        },
         "include_job": {
             "type": "string",
             "default": "no",
@@ -25,7 +37,7 @@
                 "no"
             ],
             "description": "Include a sample Databricks Job in the project?",
-            "order": 2
+            "order": 3
         },
         "include_dashboard": {
             "type": "string",
@@ -35,7 +47,7 @@
                 "no"
             ],
             "description": "Include a sample Databricks Dashboard in the project?",
-            "order": 2
+            "order": 4
         }
     },
     "success_message": "\n Bundle `{{.project_name}}` has been created!"
